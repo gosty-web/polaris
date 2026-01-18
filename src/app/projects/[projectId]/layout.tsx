@@ -1,23 +1,20 @@
-import { ProjectIdLayout } from "@/features/projects/components/project-id-layout";
+// 1. Define params as a Promise
+type Params = Promise<{ projectId: string }>;
 
-import { Id } from "../../../../convex/_generated/dataModel";
-
-const Layout = async ({
-  children,
-  params,
-}: {
-  children: React.ReactNode;
-  params: Promise<{ projectId: Id<"projects"> }>
-}) => {
-  const { projectId } = await params;
+// 2. Make the layout function async
+export default async function Layout({ 
+  children, 
+  params 
+}: { 
+  children: React.ReactNode, 
+  params: Params 
+}) {
+  // 3. Await the params to get the actual ID
+  const { projectId } = await params; 
 
   return (
-    <ProjectIdLayout
-      projectId={projectId}
-    >
+    <section>
       {children}
-    </ProjectIdLayout>
+    </section>
   );
 }
- 
-export default Layout;
